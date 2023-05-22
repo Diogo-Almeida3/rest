@@ -25,14 +25,6 @@ public class MessageProducer {
     }
 
     public BigDecimal sendMessage(MessageDto message) {
-        LOGGER.info("Message sent -> " + message.toString());
-
-        BigDecimal result = (BigDecimal) rabbitTemplate.convertSendAndReceive(exchange, routingKey, message);
-
-        if (result != null) {
-            LOGGER.info("Message received -> " + result);
-            return result;
-        }
-        return null;
+        return (BigDecimal) rabbitTemplate.convertSendAndReceive(exchange, routingKey, message);
     }
 }
