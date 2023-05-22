@@ -4,6 +4,7 @@ import ch.qos.logback.access.tomcat.LogbackValve;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
@@ -77,6 +78,7 @@ public class RestApiController {
                                            HttpServletRequest request) {
 
         HttpHeaders headers = new HttpHeaders();
+        //Use MDC to obtain the identifier
         String identifier = generateIdAndHeader(headers);
         LOGGER.info("Request -> " + request.getRequestURI() + " - Identifier -> " +  identifier + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
 
@@ -117,7 +119,7 @@ public class RestApiController {
     }
 
     private String generateIdAndHeader(HttpHeaders headers) {
-        String identifier = UUID.randomUUID().toString();
+        String identifier = MDC.get("identifier");
         headers.set("Unique-Identifier", identifier);
         return identifier;
     }
