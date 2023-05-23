@@ -40,15 +40,15 @@ public class RestApiController {
 
         HttpHeaders headers = new HttpHeaders();
         String identifier = generateIdAndHeader(headers);
-        LOGGER.info("Request -> " + request.getRequestURI() + " - Identifier -> " +  identifier + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
+        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
 
-        BigDecimal result = messageProducer.sendMessage(new MessageDto(firstValue, secondValue, Operation.ADD));
+        BigDecimal result = messageProducer.sendMessage(new MessageDto(firstValue, secondValue, Operation.ADD, identifier));
 
-        if(result == null) {
+        if (result == null) {
             return ResponseEntity.badRequest().headers(headers).body(generateError());
         }
 
-        LOGGER.info("Request -> " + request.getRequestURI() + " - Identifier -> " +  identifier + " -  Result -> " + result);
+        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " -  Result -> " + result);
         return ResponseEntity.ok().headers(headers).body(generateBody(result));
     }
 
@@ -60,15 +60,15 @@ public class RestApiController {
 
         HttpHeaders headers = new HttpHeaders();
         String identifier = generateIdAndHeader(headers);
-        LOGGER.info("Request -> " + request.getRequestURI() + " - Identifier -> " +  identifier + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
+        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
 
-        BigDecimal result = messageProducer.sendMessage(new MessageDto(firstValue, secondValue, Operation.SUB));
+        BigDecimal result = messageProducer.sendMessage(new MessageDto(firstValue, secondValue, Operation.SUB, identifier));
 
-        if(result == null) {
+        if (result == null) {
             return ResponseEntity.badRequest().headers(headers).body(generateError());
         }
 
-        LOGGER.info("Request -> " + request.getRequestURI() + " - Identifier -> " +  identifier + " -  Result -> " + result);
+        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " -  Result -> " + result);
         return ResponseEntity.ok().headers(headers).body(generateBody(result));
     }
 
@@ -80,15 +80,15 @@ public class RestApiController {
         HttpHeaders headers = new HttpHeaders();
         //Use MDC to obtain the identifier
         String identifier = generateIdAndHeader(headers);
-        LOGGER.info("Request -> " + request.getRequestURI() + " - Identifier -> " +  identifier + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
+        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
 
-        BigDecimal result = messageProducer.sendMessage(new MessageDto(firstValue, secondValue, Operation.MUL));
+        BigDecimal result = messageProducer.sendMessage(new MessageDto(firstValue, secondValue, Operation.MUL, identifier));
 
-        if(result == null) {
+        if (result == null) {
             return ResponseEntity.badRequest().headers(headers).body(generateError());
         }
 
-        LOGGER.info("Request -> " + request.getRequestURI() + " - Identifier -> " +  identifier + " -  Result -> " + result);
+        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " -  Result -> " + result);
         return ResponseEntity.ok().headers(headers).body(generateBody(result));
     }
 
@@ -99,15 +99,15 @@ public class RestApiController {
 
         HttpHeaders headers = new HttpHeaders();
         String identifier = generateIdAndHeader(headers);
-        LOGGER.info("Request -> " + request.getRequestURI() + " - Identifier -> " +  identifier + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
+        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
 
-        BigDecimal result = messageProducer.sendMessage(new MessageDto(firstValue, secondValue, Operation.DIV));
+        BigDecimal result = messageProducer.sendMessage(new MessageDto(firstValue, secondValue, Operation.DIV, identifier));
 
-        if(result == null) {
+        if (result == null) {
             return ResponseEntity.badRequest().headers(headers).body(generateError());
         }
 
-        LOGGER.info("Request -> " + request.getRequestURI() + " - Identifier -> " +  identifier + " -  Result -> " + result);
+        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " -  Result -> " + result);
         return ResponseEntity.ok().headers(headers).body(generateBody(result));
     }
 
