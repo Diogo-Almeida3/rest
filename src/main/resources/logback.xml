@@ -23,17 +23,9 @@
             <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level : %msg%n
             </Pattern>
         </encoder>
-
     </appender>
 
-    <!-- Logging at INFO level -->
-    <root level="info">
-        <appender-ref ref="LogFile" />
-        <appender-ref ref="ConsoleOutput" />
-    </root>
-
-    <!-- Logging at TRACE level -->
-    <logger name="com.log" level="trace" additivity="false">
+    <logger name="wit.diogo.rest.RestApiController" level="INFO">
         <appender-ref ref="LogFile" />
         <appender-ref ref="ConsoleOutput" />
     </logger>
