@@ -10,17 +10,16 @@ import wit.diogo.rest.rabbitmq.dto.MessageDto;
 import java.math.BigDecimal;
 
 @Service
-public class MessageProducer {
+public class MessageHandler {
 
     @Value("${rabbitmq.configuration.exchange.name}")
     private String exchange;
     @Value("${rabbitmq.configuration.write-routing-key.name}")
     private String routingKey;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MessageProducer.class);
     private RabbitTemplate rabbitTemplate;
 
-    public MessageProducer(RabbitTemplate rabbitTemplate) {
+    public MessageHandler(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
     }
 

@@ -15,21 +15,20 @@ public class Interceptor implements Filter {
     }
 
     @Override
-    public void doFilter( final ServletRequest request,
-                          final ServletResponse response, final FilterChain chain )
+    public void doFilter(final ServletRequest request,
+                         final ServletResponse response, final FilterChain chain)
             throws IOException, ServletException {
 
-        MDC.put( "identifier", UUID.randomUUID().toString());
+        MDC.put("identifier", UUID.randomUUID().toString());
 
         try {
-            chain.doFilter( request, response );
+            chain.doFilter(request, response);
         } finally {
             MDC.clear();
         }
     }
 
     @Override
-    public void init( final FilterConfig filterConfig )
-            throws ServletException {
+    public void init(final FilterConfig filterConfig) {
     }
 }
