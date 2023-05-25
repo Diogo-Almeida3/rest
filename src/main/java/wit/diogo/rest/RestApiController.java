@@ -37,18 +37,18 @@ public class RestApiController {
     public ResponseEntity<String> sum(@RequestParam BigDecimal firstValue, @RequestParam BigDecimal secondValue,
                                       HttpServletRequest request) {
 
-        HttpHeaders headers = new HttpHeaders();
-        String identifier = generateIdAndHeader(headers);
+        String identifier = MDC.get("identifier");
+        
         LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
 
         BigDecimal result = messageHandler.sendMessage(new MessageDto(firstValue, secondValue, Operation.ADD, identifier));
 
         if (result == null) {
-            return ResponseEntity.badRequest().headers(headers).body(generateError());
+            return ResponseEntity.badRequest().body(generateError());
         }
 
         LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " -  Result -> " + result);
-        return ResponseEntity.ok().headers(headers).body(generateBody(result));
+        return ResponseEntity.ok().body(generateBody(result));
     }
 
 
@@ -56,19 +56,18 @@ public class RestApiController {
             consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<String> subtract(@RequestParam BigDecimal firstValue, @RequestParam BigDecimal secondValue,
                                            HttpServletRequest request) {
-
-        HttpHeaders headers = new HttpHeaders();
-        String identifier = generateIdAndHeader(headers);
+        
+        String identifier = MDC.get("identifier");
         LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
 
         BigDecimal result = messageHandler.sendMessage(new MessageDto(firstValue, secondValue, Operation.SUB, identifier));
 
         if (result == null) {
-            return ResponseEntity.badRequest().headers(headers).body(generateError());
+            return ResponseEntity.badRequest().body(generateError());
         }
 
         LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " -  Result -> " + result);
-        return ResponseEntity.ok().headers(headers).body(generateBody(result));
+        return ResponseEntity.ok().body(generateBody(result));
     }
 
     @PostMapping(value = "/multiply", produces = {MediaType.APPLICATION_JSON_VALUE},
@@ -76,18 +75,18 @@ public class RestApiController {
     public ResponseEntity<String> multiply(@RequestParam BigDecimal firstValue, @RequestParam BigDecimal secondValue,
                                            HttpServletRequest request) {
 
-        HttpHeaders headers = new HttpHeaders();
-        String identifier = generateIdAndHeader(headers);
+        
+        String identifier = MDC.get("identifier");
         LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
 
         BigDecimal result = messageHandler.sendMessage(new MessageDto(firstValue, secondValue, Operation.MUL, identifier));
 
         if (result == null) {
-            return ResponseEntity.badRequest().headers(headers).body(generateError());
+            return ResponseEntity.badRequest().body(generateError());
         }
 
         LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " -  Result -> " + result);
-        return ResponseEntity.ok().headers(headers).body(generateBody(result));
+        return ResponseEntity.ok().body(generateBody(result));
     }
 
     @PostMapping(value = "/divide", produces = {MediaType.APPLICATION_JSON_VALUE},
@@ -95,18 +94,18 @@ public class RestApiController {
     public ResponseEntity<String> divide(@RequestParam BigDecimal firstValue, @RequestParam BigDecimal secondValue,
                                          HttpServletRequest request) {
 
-        HttpHeaders headers = new HttpHeaders();
-        String identifier = generateIdAndHeader(headers);
+        
+        String identifier = MDC.get("identifier");
         LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
 
         BigDecimal result = messageHandler.sendMessage(new MessageDto(firstValue, secondValue, Operation.DIV, identifier));
 
         if (result == null) {
-            return ResponseEntity.badRequest().headers(headers).body(generateError());
+            return ResponseEntity.badRequest().body(generateError());
         }
 
         LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " -  Result -> " + result);
-        return ResponseEntity.ok().headers(headers).body(generateBody(result));
+        return ResponseEntity.ok().body(generateBody(result));
     }
 
     @Bean
@@ -114,12 +113,6 @@ public class RestApiController {
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
         tomcat.addContextValves(new LogbackValve());
         return tomcat;
-    }
-
-    private String generateIdAndHeader(HttpHeaders headers) {
-        String identifier = MDC.get("identifier");
-        headers.set("Unique-Identifier", identifier);
-        return identifier;
     }
 
     private String generateBody(BigDecimal result) {
