@@ -3,20 +3,19 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml" />
 
     <property name="LOG_PATH" value="./logs"/>
-    <property name="LOG_FILE_NAME" value="log-file1"/>
+    <property name="LOG_FILE_NAME" value="log-file"/>
 
     <appender name="ConsoleOutput"
               class="ch.qos.logback.core.ConsoleAppender">
-        <layout
-                class="ch.qos.logback.access.PatternLayout">
-            %white(%d{ISO8601}) %highlight(%-5level) [%yellow(%t)] : %mdc -  %msg%n%throwable
-        </layout>
+        <encoder>
+            <pattern>%responseHeader{Unique-Identifier} - %t "%r" %s %b "%i{User-Agent}"</pattern>
+        </encoder>
     </appender>
 
     <appender name="LogFile" class="ch.qos.logback.core.FileAppender">
         <file>${LOG_PATH}/${LOG_FILE_NAME}.log</file>
         <encoder>
-            <pattern>%X{identifier} - %h %l %u %t "%r" %s %b "%i{User-Agent}"</pattern>
+            <pattern>%responseHeader{Unique-Identifier} - %t "%r" %s %b "%i{User-Agent}"</pattern>
         </encoder>
     </appender>
 
