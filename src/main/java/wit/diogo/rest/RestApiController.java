@@ -1,12 +1,9 @@
 package wit.diogo.rest;
 
-import ch.qos.logback.access.tomcat.LogbackValve;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +35,7 @@ public class RestApiController {
 
         String identifier = MDC.get("identifier");
 
-        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
+        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
 
         BigDecimal result = messageHandler.sendMessage(new MessageDto(firstValue, secondValue, Operation.ADD, identifier));
 
@@ -46,7 +43,7 @@ public class RestApiController {
             return ResponseEntity.badRequest().body(generateError());
         }
 
-        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " -  Result -> " + result);
+        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " -  Result -> " + result);
         return ResponseEntity.ok().body(generateBody(result));
     }
 
@@ -57,7 +54,7 @@ public class RestApiController {
                                            HttpServletRequest request) {
 
         String identifier = MDC.get("identifier");
-        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
+        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
 
         BigDecimal result = messageHandler.sendMessage(new MessageDto(firstValue, secondValue, Operation.SUB, identifier));
 
@@ -65,7 +62,7 @@ public class RestApiController {
             return ResponseEntity.badRequest().body(generateError());
         }
 
-        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " -  Result -> " + result);
+        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " -  Result -> " + result);
         return ResponseEntity.ok().body(generateBody(result));
     }
 
@@ -76,7 +73,7 @@ public class RestApiController {
 
 
         String identifier = MDC.get("identifier");
-        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
+        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
 
         BigDecimal result = messageHandler.sendMessage(new MessageDto(firstValue, secondValue, Operation.MUL, identifier));
 
@@ -84,7 +81,7 @@ public class RestApiController {
             return ResponseEntity.badRequest().body(generateError());
         }
 
-        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " -  Result -> " + result);
+        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " -  Result -> " + result);
         return ResponseEntity.ok().body(generateBody(result));
     }
 
@@ -95,7 +92,7 @@ public class RestApiController {
 
 
         String identifier = MDC.get("identifier");
-        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
+        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
 
         BigDecimal result = messageHandler.sendMessage(new MessageDto(firstValue, secondValue, Operation.DIV, identifier));
 
@@ -103,15 +100,8 @@ public class RestApiController {
             return ResponseEntity.badRequest().body(generateError());
         }
 
-        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " -  Result -> " + result);
+        LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " -  Result -> " + result);
         return ResponseEntity.ok().body(generateBody(result));
-    }
-
-    @Bean
-    public TomcatServletWebServerFactory servletContainer() {
-        TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
-        tomcat.addContextValves(new LogbackValve());
-        return tomcat;
     }
 
     private String generateBody(BigDecimal result) {
