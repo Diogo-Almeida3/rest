@@ -24,6 +24,6 @@ public class Interceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-        //MDC.remove(IDENTIFIER_MDC_KEY);
+        MDC.remove(IDENTIFIER_MDC_KEY);
     }
 }
