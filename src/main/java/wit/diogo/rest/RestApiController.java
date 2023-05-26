@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +37,7 @@ public class RestApiController {
                                       HttpServletRequest request) {
 
         String identifier = MDC.get("identifier");
-        
+
         LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
 
         BigDecimal result = messageHandler.sendMessage(new MessageDto(firstValue, secondValue, Operation.ADD, identifier));
@@ -56,7 +55,7 @@ public class RestApiController {
             consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<String> subtract(@RequestParam BigDecimal firstValue, @RequestParam BigDecimal secondValue,
                                            HttpServletRequest request) {
-        
+
         String identifier = MDC.get("identifier");
         LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
 
@@ -75,7 +74,7 @@ public class RestApiController {
     public ResponseEntity<String> multiply(@RequestParam BigDecimal firstValue, @RequestParam BigDecimal secondValue,
                                            HttpServletRequest request) {
 
-        
+
         String identifier = MDC.get("identifier");
         LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
 
@@ -94,7 +93,7 @@ public class RestApiController {
     public ResponseEntity<String> divide(@RequestParam BigDecimal firstValue, @RequestParam BigDecimal secondValue,
                                          HttpServletRequest request) {
 
-        
+
         String identifier = MDC.get("identifier");
         LOGGER.info("Module -> Rest - Request -> " + request.getRequestURI() + " - Identifier -> " + identifier + " - First Value -> " + firstValue + " - Second Value -> " + secondValue);
 
