@@ -113,7 +113,7 @@ public class RestApiController {
 
     private String generateError() {
         JSONObject json = new JSONObject();
-        json.put("error", "Problem performing the request");
+        json.put("error", "Problem performing the calculation");
         return json.toString();
     }
 }
